@@ -6,7 +6,7 @@ info:
   x-channel-name: "/Channels/KafkaChannel"
 channels:
   be_kafka_topic:
-    subscribe:
+    publish:
       operationId: Channels_KafkaChannel_orderDest
       message:
         "$ref": "#/components/messages/OrderEvent"
@@ -25,7 +25,7 @@ channels:
         heartbeat.interval.msec: '3000'
         consumer.threads: '1'
   be_kafka_topic_customer:
-    subscribe:
+    publish:
       operationId: Channels_KafkaChannel_customerSignup
       message:
         "$ref": "#/components/messages/CustomerSignup"
