@@ -104,14 +104,14 @@ components:
     OrderEvent:
       payload:
         "$ref": "#/components/schemas/OrderEvent"
-      examples:
+     examples:
       - name: SimpleSignup
         summary: A simple UserSignup example message
         headers:
           correlationId: my-correlation-id
           applicationInstanceId: myInstanceId
         payload:
-          customer_id: 'john'
+          customer_id: john
           order_id: '1001'
     CustomerSignup:
       payload:
