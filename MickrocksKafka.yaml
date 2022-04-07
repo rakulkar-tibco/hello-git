@@ -107,9 +107,6 @@ components:
       examples:
       - name: SimpleSignup
         summary: A simple UserSignup example message
-        headers:
-          correlationId: my-correlation-id
-          applicationInstanceId: myInstanceId
         payload:
           customer_id: john
           order_id: '1001'
