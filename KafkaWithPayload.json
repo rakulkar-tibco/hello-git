@@ -1,0 +1,217 @@
+{
+  "asyncapi" : "2.1.0",
+  "info" : {
+    "version" : "1",
+    "title" : "KafkaWithPayload",
+    "x-channel-name" : "/Channels/KafkaChannel"
+  },
+  "channels" : {
+    "be_kafka_topic" : {
+      "subscribe" : {
+        "operationId" : "Channels_KafkaChannel_orderDest",
+        "x-default-event" : "/Events/OrderEvent",
+        "message" : {
+          "$ref" : "#/components/messages/OrderEvent"
+        },
+        "x-dest-properties" : {
+          "compression.type" : "none",
+          "sync.sender" : "true",
+          "session.timeout.msec" : "30000",
+          "group.id" : "be_group",
+          "autocommit.interval" : "5000",
+          "IncludeEventType" : "ALWAYS",
+          "message.key.rf" : "/RuleFunctions/OrderKeyRF",
+          "sync.sender.max.wait" : "30000",
+          "serializer-deserializer-class" : "com.tibco.cep.driver.kafka.serializer.KafkaMapSerializer",
+          "enable.autocommit" : "true",
+          "topic.name" : "be_kafka_topic",
+          "heartbeat.interval.msec" : "3000",
+          "consumer.threads" : "1"
+        }
+      }
+    },
+    "be_kafka_topic_customer" : {
+      "subscribe" : {
+        "operationId" : "Channels_KafkaChannel_customerSignup",
+        "x-default-event" : "/Events/CustomerSignup",
+        "message" : {
+          "$ref" : "#/components/messages/CustomerSignup"
+        },
+        "x-dest-properties" : {
+          "compression.type" : "none",
+          "sync.sender" : "false",
+          "session.timeout.msec" : "30000",
+          "group.id" : "be_group",
+          "autocommit.interval" : "5000",
+          "IncludeEventType" : "ALWAYS",
+          "sync.sender.max.wait" : "30000",
+          "serializer-deserializer-class" : "com.tibco.cep.driver.kafka.serializer.KafkaJsonSerializer",
+          "enable.autocommit" : "true",
+          "topic.name" : "be_kafka_topic_customer",
+          "heartbeat.interval.msec" : "3000",
+          "consumer.threads" : "1"
+        }
+      }
+    }
+  },
+  "servers" : {
+    "default" : {
+      "url" : "localhost:9092",
+      "protocol" : "Kafka",
+      "x-config-properties" : {
+        "kafka.security.protocol" : "PLAINTEXT",
+        "kafka.sasl.mechanism" : "PLAIN",
+        "async.server.url.property" : "kafka.broker.urls",
+        "kafka.broker.urls" : "localhost:9092",
+        "async.channelName.property" : "topic.name"
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "ConceptRef_" : {
+        "type" : "object",
+        "properties" : {
+          "ref" : {
+            "type" : "string",
+            "historyPolicy" : 0,
+            "historySize" : 0
+          }
+        }
+      },
+      "OrderItem" : {
+        "properties" : {
+          "item_name" : {
+            "type" : "string",
+            "historyPolicy" : 0,
+            "historySize" : 0
+          },
+          "price" : {
+            "type" : "number",
+            "format" : "double",
+            "historyPolicy" : 0,
+            "historySize" : 0
+          },
+          "quantity" : {
+            "type" : "integer",
+            "format" : "int32",
+            "historyPolicy" : 0,
+            "historySize" : 0
+          }
+        }
+      },
+      "Order" : {
+        "type" : "object",
+        "properties" : {
+          "items" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/OrderItem",
+              "historyPolicy" : 0,
+              "historySize" : 0,
+              "x-conceptPath" : "/Concepts/OrderItem",
+              "x-event-payloadtype" : "CEPT_REF"
+            }
+          }
+        }
+      },
+      "OrderEvent" : {
+        "type" : "object",
+        "properties" : {
+          "payload" : {
+            "properties" : {
+              "Order" : {
+                "type" : "object",
+                "$ref" : "#/components/schemas/Order",
+                "historyPolicy" : 0,
+                "historySize" : 0,
+                "x-conceptPath" : "/Concepts/Order",
+                "x-event-payloadtype" : "CEPT_REF",
+                "x-nameSpace" : "www.tibco.com/be/ontology/Concepts/Order"
+              }
+            }
+          },
+          "customer_id" : {
+            "type" : "string"
+          },
+          "order_id" : {
+            "type" : "string"
+          }
+        }
+      },
+      "Customer" : {
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "type" : "string",
+            "historyPolicy" : 0,
+            "historySize" : 0
+          },
+          "age" : {
+            "type" : "integer",
+            "format" : "int32",
+            "historyPolicy" : 0,
+            "historySize" : 0
+          },
+          "address" : {
+            "type" : "string",
+            "historyPolicy" : 0,
+            "historySize" : 0
+          }
+        }
+      },
+      "CustomerSignup" : {
+        "type" : "object",
+        "properties" : {
+          "payload" : {
+            "properties" : {
+              "Customer" : {
+                "type" : "object",
+                "$ref" : "#/components/schemas/Customer",
+                "historyPolicy" : 0,
+                "historySize" : 0,
+                "x-conceptPath" : "/Concepts/Customer",
+                "x-event-payloadtype" : "CEPT_REF",
+                "x-nameSpace" : "www.tibco.com/be/ontology/Concepts/Customer"
+              }
+            }
+          },
+          "ref_code" : {
+            "type" : "string"
+          }
+        }
+      }
+    },
+    "messages" : {
+      "OrderEvent" : {
+        "payload" : {
+          "$ref" : "#/components/schemas/OrderEvent"
+        },
+        "examples": [{
+            "name": "Order1",
+            "summary": "Order1 example message",
+            "payload": {
+               "payload": {
+                  "Order": {
+                    "items": [
+                      {
+                        "item_name": "OrderItem1",
+                        "price": 111,
+                        "quantity": 100
+                      }
+                    ]
+                  }
+                },
+                "customer_id": "john",
+                "order_id": "1001"
+            }
+          }]
+      },
+      "CustomerSignup" : {
+        "payload" : {
+          "$ref" : "#/components/schemas/CustomerSignup"
+        }
+      }
+    }
+  }
+}
