@@ -1,7 +1,8 @@
+---
 asyncapi: 2.1.0
 info:
-  version: '1'
-  title: KafkaWithPayload
+  version: '22'
+  title: Kafka
   x-channel-name: "/Channels/KafkaChannel"
 channels:
   be_kafka_topic:
@@ -151,9 +152,11 @@ components:
               - item_name: OrderItem1
                 price: 111
                 quantity: 100
+              - item_name: OrderItem2
+                price: 222
+                quantity: 200
           customer_id: john
           order_id: '1001'
     CustomerSignup:
       payload:
         "$ref": "#/components/schemas/CustomerSignup"
-
