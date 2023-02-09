@@ -24,7 +24,7 @@ channels:
         topic.name: be_kafka_topic
         heartbeat.interval.msec: '3000'
         consumer.threads: '1'
-  Kafka-38-Kafka-33-customerSignupXML:
+  customerSignupXML:
     subscribe:
       operationId: Channels_KafkaChannel_customerSignupXML
       x-default-event: "/Events/CustomerSignupXML"
@@ -63,7 +63,7 @@ channels:
         topic.name: orderStatusDest
         heartbeat.interval.msec: '3000'
         consumer.threads: '1'
-  Kafka-57-Kafka-38-Kafka-33-customerSignupJSON:
+  customerSignupJSON:
     subscribe:
       operationId: Channels_KafkaChannel_customerSignupJSON
       x-default-event: "/Events/CustomerSignupJSON"
