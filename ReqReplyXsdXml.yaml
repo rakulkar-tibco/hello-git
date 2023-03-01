@@ -1,0 +1,113 @@
+asyncapi: "2.1.0"
+info:
+  version: "62"
+  title: "RequestReplyEventXSDPayload"
+  x-channel-name: "/Channels/Kafka"
+channels:
+  RequestReplyEventXSDPayload-62-RequestReplyEventXSDPayload-57-be_kafka_topic:
+    subscribe:
+      operationId: "Channels_Kafka_testJson"
+      x-default-event: "/Events/SendStudentDataJson"
+      message:
+        $ref: "#/components/messages/SendStudentDataJson"
+      x-dest-properties:
+        compression.type: "none"
+        sync.sender: "false"
+        session.timeout.msec: "30000"
+        group.id: "be_group"
+        autocommit.interval: "5000"
+        IncludeEventType: "ALWAYS"
+        sync.sender.max.wait: "30000"
+        serializer-deserializer-class: "com.tibco.cep.driver.kafka.serializer.KafkaJsonSerializer"
+        enable.autocommit: "true"
+        topic.name: "RequestReplyEventXSDPayload-62-RequestReplyEventXSDPayload-57-be_kafka_topic"
+        heartbeat.interval.msec: "3000"
+        max.poll.interval.ms: "300000"
+        consumer.threads: "1"
+  be_kafka_topicxml:
+    subscribe:
+      operationId: "Channels_Kafka_testXml"
+      x-default-event: "/Events/SendStudentDataXml"
+      message:
+        $ref: "#/components/messages/SendStudentDataXml"
+      x-dest-properties:
+        compression.type: "none"
+        sync.sender: "false"
+        session.timeout.msec: "30000"
+        group.id: "be_group"
+        autocommit.interval: "5000"
+        IncludeEventType: "ALWAYS"
+        sync.sender.max.wait: "30000"
+        serializer-deserializer-class: "com.tibco.cep.driver.kafka.serializer.KafkaMapSerializer"
+        enable.autocommit: "true"
+        topic.name: "be_kafka_topicxml"
+        heartbeat.interval.msec: "3000"
+        max.poll.interval.ms: "300000"
+        consumer.threads: "1"
+servers:
+  default:
+    url: "localhost:9092"
+    protocol: "Kafka"
+    x-config-properties:
+      kafka.security.protocol: "PLAINTEXT"
+      kafka.sasl.mechanism: "PLAIN"
+      async.server.url.property: "kafka.broker.urls"
+      kafka.broker.urls: "localhost:9092"
+      async.channelName.property: "topic.name"
+components:
+  schemas:
+    Student_Request_Element:
+      type: "object"
+      xml:
+        namespace: "http://tibco.com/qa/xsd/student"
+      properties:
+        Name:
+          type: "string"
+        Roll_no:
+          type: "integer"
+        Marks:
+          type: "number"
+        IsTopper:
+          type: "boolean"
+        RegistrationNo:
+          type: "integer"
+        Subjects:
+          type: "string"
+        DOB:
+          type: "string"
+          format: "date-time"
+    SendStudentDataJson:
+      type: "object"
+      properties:
+        payload:
+          properties:
+            Student_Request_Element:
+              type: "object"
+              $ref: "#/components/schemas/Student_Request_Element"
+              historyPolicy: 0
+              historySize: 0
+              x-conceptPath: "Student_Request_Element"
+              x-event-payloadtype: "XSD_ELEMENT_REF"
+              x-nameSpace: "http://tibco.com/qa/xsd/student"
+    SendStudentDataXml:
+      type: "object"
+      properties:
+        payload:
+          properties:
+            Student_Request_Element:
+              type: "object"
+              $ref: "#/components/schemas/Student_Request_Element"
+              historyPolicy: 0
+              historySize: 0
+              x-conceptPath: "Student_Request_Element"
+              x-event-payloadtype: "XSD_ELEMENT_REF"
+              x-nameSpace: "http://tibco.com/qa/xsd/student"
+  messages:
+    SendStudentDataJson:
+      payload:
+        $ref: "#/components/schemas/SendStudentDataJson"
+      contentType: "application/xml"
+    SendStudentDataXml:
+      payload:
+        $ref: "#/components/schemas/SendStudentDataXml"
+      contentType: "application/xml"
