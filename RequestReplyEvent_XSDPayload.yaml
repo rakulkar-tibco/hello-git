@@ -125,7 +125,7 @@ components:
             payload:
                 "<?xml version='1.0' encoding='UTF-8'?>
                 <payload>
-                <Student_Request_Element xmlns=\"http://tibco.com/qa/xsd/student\">
+                <Student_Request_Element xmlns="http://tibco.com/qa/xsd/student">
                         <Name>Bob</Name>
                         <Roll_no>12</Roll_no>
                         <Marks>88.92</Marks>
