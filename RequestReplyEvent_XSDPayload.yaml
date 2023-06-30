@@ -4,7 +4,7 @@ info:
   title: "RequestReplyEventXSDPayload"
   x-channel-name: "/Channels/Kafka"
 channels:
-  RequestReplyEventXSDPayload-62-RequestReplyEventXSDPayload-62-RequestReplyEventXSDPayload-57-be_kafka_topic:
+  be_kafka_topic:
     subscribe:
       operationId: "Channels_Kafka_testJson"
       x-default-event: "/Events/SendStudentDataJson"
