@@ -122,4 +122,4 @@ components:
       examples:
         - name: Test3
           payload:
-                "<?xml version=\"1.0\" encoding=\"UTF-8\"?><payload><Student_Request_Element xmlns=\"http://tibco.com/qa/xsd/student\"><Name>string</Name><Roll_no>0</Roll_no><Marks>0</Marks><IsTopper>true</IsTopper><RegistrationNo>0</RegistrationNo><Subjects>string</Subjects><DOB>2023-06-30T11:40:05.651Z</DOB>/Student_Request_Element></payload>"
+                "<?xml version="1.0" encoding=\"UTF-8\"?><payload><Student_Request_Element xmlns="http://tibco.com/qa/xsd/student"><Name>string</Name><Roll_no>0</Roll_no><Marks>0</Marks><IsTopper>true</IsTopper><RegistrationNo>0</RegistrationNo><Subjects>string</Subjects><DOB>2023-06-30T11:40:05.651Z</DOB>/Student_Request_Element></payload>"
