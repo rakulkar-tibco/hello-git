@@ -120,6 +120,20 @@ components:
         $ref: "#/components/schemas/SendStudentDataXml"
       contentType: "application/xml"
       examples:
-        - name: Test3
-          payload:
-                "<?xml version="1.0" encoding=\"UTF-8\"?><payload><Student_Request_Element xmlns="http://tibco.com/qa/xsd/student"><Name>string</Name><Roll_no>0</Roll_no><Marks>0</Marks><IsTopper>true</IsTopper><RegistrationNo>0</RegistrationNo><Subjects>string</Subjects><DOB>2023-06-30T11:40:05.651Z</DOB>/Student_Request_Element></payload>"
+        - name : Test3
+          payload:     
+                "<?xml version='1.0' encoding='UTF-8'?>
+                <payload>
+                <Student_Request_Element xmlns="http://tibco.com/qa/xsd/student">
+                        <Name>Bob</Name>
+                        <Roll_no>12</Roll_no>
+                        <Marks>88.92</Marks>
+                        <IsTopper>true</IsTopper>
+                        <RegistrationNo>345677</RegistrationNo>
+                        <Subjects>Maths,Science</Subjects>
+                        <DOB>2019-08-24T14:15:22Z</DOB>
+                        <attributes>
+                            <type>http://tibco.com/qa/xsd/student</type>
+                        </attributes>
+                </Student_Request_Element>
+                </payload>"
