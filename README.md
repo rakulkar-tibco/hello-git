@@ -1,4 +1,4 @@
 # hello-git
 
-git learning new framework Mayura!!
+I am learning new framework
 
